@@ -1,6 +1,9 @@
 package fr.pizzeria.ihm;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import fr.pizzeria.dao.PizzaDao;
 
@@ -8,7 +11,7 @@ public class Menu {
 	
 	
 	public PizzaDao dao;
-	private OptionMenu[] menu = new OptionMenu[4];
+	private Map<Integer, OptionMenu> menu = new HashMap<>();
 	public static Scanner sc = new Scanner(System.in);
 
 	/**
@@ -18,10 +21,10 @@ public class Menu {
 	 */
 	public Menu() {
 		dao = new PizzaDao();
-		menu[0] = new ListerPizzasOptionMenu(dao);
-		menu[1] = new NouvellePizzaOptionMenu(dao);
-		menu[2] = new ModifierPizza(dao);
-		menu[3] = new SupprimerPizza(dao);
+		menu.put(new Integer(0), new ListerPizzasOptionMenu(dao));
+		menu.put(new Integer(2), new NouvellePizzaOptionMenu(dao));
+		menu.put(new Integer(8), new ModifierPizza(dao));
+		menu.put(new Integer(9), new SupprimerPizza(dao));
 
 	}
 
@@ -33,9 +36,11 @@ public class Menu {
 	public void afficher() {
 
 		System.out.println("***** Pizzeria Administration *****");
-		for (int i = 0; i < menu.length; i++) {
-			System.out.println(menu[i].getLibelle());
-
+		
+		
+		Set<Integer> keys = menu.keySet();
+		for (Integer key: keys){
+			System.out.println(menu.get(key).getLibelle());
 		}
 
 		System.out.println("99. Sortie");
@@ -55,17 +60,17 @@ public class Menu {
 			switch (reponse) {
 
 			case 1:
-				menu[0].excute();
+				menu.get(0).excute();
 				break;
 
 			case 2:
-				menu[1].excute();
+				menu.get(1).excute();
 				break;
 			case 3:
-				menu[2].excute();
+				menu.get(2).excute();
 				break;
 			case 4:
-				menu[3].excute();
+				menu.get(3).excute();
 				break;
 			case 99:
 				System.out.println("Aurevoir =( ");

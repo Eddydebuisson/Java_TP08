@@ -1,5 +1,7 @@
 package fr.pizzeria.dao;
 
+import java.util.List;
+
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
@@ -15,7 +17,7 @@ public interface IPizzaDao {
 	/**
 	 * @return
 	 */
-	Pizza[] findAllPizzas();
+	List<Pizza> findAllPizzas();
 
 	/**
 	 * @param pizza
